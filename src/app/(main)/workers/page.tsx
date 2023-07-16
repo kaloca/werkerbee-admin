@@ -3,10 +3,13 @@ import { useState } from 'react'
 
 import ListItem from './components/ListItem'
 import useWorkers from './hooks/useWorkers'
+import WorkerModal from './components/WorkerModal'
 
 export default function WorkersPage() {
+	const [showWorkerModal, setShowWorkerModal] = useState(false)
+	const [selectedWorker, setSelectedWorker] = useState('')
 	const [currentPage, setCurrentPage] = useState(1)
-	const { data, error, isLoading } = useWorkers(currentPage, 10)
+	const { data, error, isLoading, mutate } = useWorkers(currentPage, 10)
 
 	if (isLoading) return <div>Loading...</div>
 	if (error) return <div>An error has occurred: {error.message}</div>
@@ -15,6 +18,14 @@ export default function WorkersPage() {
 
 	return (
 		<div className='px-4 sm:px-6 lg:px-8'>
+			{showWorkerModal && (
+				<WorkerModal
+					open={showWorkerModal}
+					onClose={() => setShowWorkerModal(false)}
+					username={selectedWorker}
+					mutate={mutate}
+				/>
+			)}
 			<div className='sm:flex sm:items-center'>
 				<div className='sm:flex-auto'>
 					<h1 className='text-xl font-semibold text-gray-900'>Workers</h1>
@@ -31,11 +42,11 @@ export default function WorkersPage() {
 					</button>
 				</div>
 			</div>
-			<div className='mt-8 flex flex-col'>
+			<div className='mt-8 flex flex-col pb-20'>
 				<div className='-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8'>
 					<div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
-						<div className='overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg'>
-							<table className='min-w-full divide-y divide-gray-300'>
+						<div className='shadow ring-1 ring-black ring-opacity-5 md:rounded-lg pb-20'>
+							<table className='min-w-full divide-y divide-gray-300 pb-20 '>
 								<thead className='bg-gray-50'>
 									<tr>
 										<th
@@ -73,7 +84,15 @@ export default function WorkersPage() {
 								<tbody className='divide-y divide-gray-200 bg-white'>
 									{data &&
 										data.workers.map((worker) => (
-											<ListItem key={worker.username} worker={worker} />
+											<ListItem
+												key={worker.username}
+												worker={worker}
+												onEdit={() => {
+													setSelectedWorker(worker.username)
+													setShowWorkerModal(true)
+												}}
+												mutate={mutate}
+											/>
 										))}
 								</tbody>
 							</table>
@@ -81,7 +100,7 @@ export default function WorkersPage() {
 					</div>
 				</div>
 			</div>
-			<div>
+			{/* <div>
 				<button
 					onClick={() =>
 						setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
@@ -111,7 +130,7 @@ export default function WorkersPage() {
 				>
 					Next
 				</button>
-			</div>
+			</div> */}
 		</div>
 	)
 }

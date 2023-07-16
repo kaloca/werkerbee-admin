@@ -19,7 +19,7 @@ import WerkerBeeLogo from '@/assets/werkerbeelogo_new_white.png'
 import Image from 'next/image'
 
 const navigation = [
-	{ name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
+	{ name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
 	{ name: 'Workers', href: '/workers', icon: UsersIcon, current: false },
 	{ name: 'Projects', href: '#', icon: FolderIcon, current: false },
 	{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },

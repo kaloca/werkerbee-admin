@@ -1,10 +1,14 @@
-import React from 'react'
+'use client'
+import { useState } from 'react'
 import Image from 'next/image'
 
 import { Worker } from '@/interfaces/Worker'
 
 import BlankProfilePic from '@/assets/blank_profile_pic.webp'
 import helpers from '@/utils/helpers'
+import ApproveRejectDropdown from './ApproveRejectDropdown'
+import apiClient from '@/utils/apiClient'
+import { KeyedMutator } from 'swr'
 
 const statusColors = {
 	APPROVED: { background: 'bg-green-100', text: 'text-green-800' },
@@ -14,10 +18,44 @@ const statusColors = {
 
 interface ListItemProps {
 	worker: Worker
+	onEdit: () => void
+	mutate: KeyedMutator<any>
 }
 
-const ListItem: React.FC<ListItemProps> = ({ worker }) => {
+const ListItem: React.FC<ListItemProps> = ({ worker, onEdit, mutate }) => {
 	let statusColor = statusColors[worker.accountStatus]
+	const [loadingStatus, setLoadingStatus] = useState(false)
+
+	const handleStatusChange = async (status: 'APPROVED' | 'REJECTED') => {
+		setLoadingStatus(true)
+
+		try {
+			const response = await apiClient({
+				method: 'put',
+				url: `/admin/worker/${worker.username}/status`,
+				token: '',
+				data: { status },
+			})
+			if (response?.status === 200) {
+				console.log('Worker profile edited successfully')
+				mutate()
+				//router.back()
+			} else {
+				console.error(
+					`Error editing worker profile: ${
+						response.data.message || response.data.error
+					}`
+				)
+			}
+		} catch (error: any) {
+			console.error(
+				'Error editing worker profile:',
+				error.response.data.message
+			)
+			//showError(error.response.data.message)
+		}
+		setLoadingStatus(false)
+	}
 
 	return (
 		<tr key={worker.username}>
@@ -50,14 +88,17 @@ const ListItem: React.FC<ListItemProps> = ({ worker }) => {
 				{worker.address.state}
 			</td>
 			<td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
-				<p
-					className={`${statusColor.background} ${statusColor.text} inline-flex capitalize rounded-full px-2 text-xs font-semibold leading-5`}
-				>
-					{worker.accountStatus.toLocaleLowerCase()}
-				</p>
+				<ApproveRejectDropdown
+					statusColor={statusColor}
+					status={worker.accountStatus.toLocaleLowerCase()}
+					handleStatusChange={handleStatusChange}
+				/>
 			</td>
 			<td className='relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6'>
-				<a href='#' className='text-indigo-600 hover:text-indigo-900'>
+				<a
+					onClick={onEdit}
+					className='hover:cursor-pointer text-indigo-600 hover:text-indigo-900'
+				>
 					Edit<span className='sr-only'>, {worker.name}</span>
 				</a>
 			</td>
