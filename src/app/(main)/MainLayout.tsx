@@ -6,6 +6,7 @@ import {
 	Bars3Icon,
 	CalendarIcon,
 	ChartBarIcon,
+	DocumentPlusIcon,
 	FolderIcon,
 	HomeIcon,
 	InboxIcon,
@@ -21,7 +22,12 @@ import Image from 'next/image'
 const navigation = [
 	{ name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: false },
 	{ name: 'Workers', href: '/workers', icon: UsersIcon, current: false },
-	{ name: 'Projects', href: '#', icon: FolderIcon, current: false },
+	{
+		name: 'Job Types',
+		href: '/jobtypes',
+		icon: DocumentPlusIcon,
+		current: false,
+	},
 	{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
 	{ name: 'Documents', href: '#', icon: InboxIcon, current: false },
 	{ name: 'Reports', href: '#', icon: ChartBarIcon, current: false },

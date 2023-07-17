@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import helpers from '@/utils/helpers'
 
-import useJobTypes from '../hooks/useJobTypes'
+import useJobTypes from '../../../../hooks/useJobTypes'
 
 const CheckedBox = () => (
 	<svg
@@ -74,8 +74,8 @@ const JobTypesInput: React.FC<JobTypesInputProps> = ({
 		return <div>Error: {loadingError.message}</div>
 	}
 
-	const fetchedJobTypes = data.types.map((jobType: string) => ({
-		type: jobType,
+	const fetchedJobTypes = data.jobTypes.map((jobType) => ({
+		type: jobType.type,
 		selected: false,
 	}))
 
