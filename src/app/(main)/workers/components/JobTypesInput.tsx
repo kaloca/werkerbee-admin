@@ -49,7 +49,7 @@ interface JobTypesInputProps {
 	inputName: string
 	showError: Record<string, any>
 	error: string
-	label: string
+	label?: string
 	value: string[]
 }
 
@@ -81,9 +81,11 @@ const JobTypesInput: React.FC<JobTypesInputProps> = ({
 
 	return (
 		<div className='w-min'>
-			<label className='block text-sm font-medium text-gray-700 capitalize'>
-				{label}
-			</label>
+			{label && (
+				<label className='block text-sm font-medium text-gray-700 capitalize'>
+					{label}
+				</label>
+			)}
 			<div
 				onClick={() => setShowDropdown(!showDropdown)}
 				className={` w-44 p-3 mt-2 bg-white border rounded ${
