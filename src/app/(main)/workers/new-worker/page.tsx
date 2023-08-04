@@ -8,7 +8,7 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import apiClient from '@/utils/apiClient'
 import helpers from '@/utils/helpers'
 
-import { useSnackbar } from '@/components/snackbar/snackbarContext'
+import { useSnackbar } from '@/components/snackbar/SnackbarContext'
 import JobTypesInput from '../components/JobTypesInput'
 
 export default function NewWorkerPage() {

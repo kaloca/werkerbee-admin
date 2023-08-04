@@ -1,8 +1,9 @@
-import { SnackbarProvider } from '@/components/snackbar/snackbarContext'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+
 import Snackbar from '@/components/snackbar/Snackbar'
+import { SnackbarProvider } from '@/components/snackbar/SnackbarContext'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
-import { useSnackbar } from './snackbarContext'
+import { useSnackbar } from './SnackbarContext'
 
 const Snackbar: React.FC = () => {
 	const { snackbar, hideSnackbar } = useSnackbar()
