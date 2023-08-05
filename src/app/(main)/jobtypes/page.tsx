@@ -24,7 +24,7 @@ export default function JobTypesPage() {
 	const [jobTypesSearchFilter, setJobTypesSearchFilter] = useState('')
 
 	return (
-		<div className='pl-20 pr-40'>
+		<div className='md:pl-20 md:pr-40 xs:pl-4 xs:pr-4'>
 			{showNewJobTypeModal && (
 				<NewJobTypeModal mutate={mutate} onClose={setShowNewJobTypeModal} />
 			)}
@@ -33,7 +33,7 @@ export default function JobTypesPage() {
 					Job Types
 				</h3>
 
-				<div className='inline-flex items-end'>
+				<div className='inline-flex items-center'>
 					<div className='border-b border-gray-200 sm:flex sm:items-center sm:justify-between'>
 						<div className='mt-3 sm:mt-0 sm:ml-4'>
 							<label htmlFor='mobile-search-candidate' className='sr-only'>
@@ -87,7 +87,7 @@ export default function JobTypesPage() {
 						<button
 							type='button'
 							onClick={() => setShowNewJobTypeModal(true)}
-							className='inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+							className='inline-flex items-center ml-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 						>
 							Create new
 						</button>
