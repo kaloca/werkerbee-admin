@@ -6,6 +6,7 @@ import {
 	Bars3Icon,
 	CalendarIcon,
 	ChartBarIcon,
+	CheckBadgeIcon,
 	DocumentPlusIcon,
 	FolderIcon,
 	HomeIcon,
@@ -28,9 +29,15 @@ const navigation = [
 		icon: DocumentPlusIcon,
 		current: false,
 	},
-	{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-	{ name: 'Documents', href: '#', icon: InboxIcon, current: false },
-	{ name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
+	{
+		name: 'Worker Certifications',
+		href: '/certifications',
+		icon: CheckBadgeIcon,
+		current: false,
+	},
+	// { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+	// { name: 'Documents', href: '#', icon: InboxIcon, current: false },
+	// { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 ]
 
 const classNames = helpers.classNames

@@ -1,9 +1,5 @@
+import { Certification } from './Certification'
 import { Address, BankAccount } from './UserData'
-
-export interface Certification {
-	certification: string
-	organization: string
-}
 export interface Experience {
 	_id: string
 	company: string
