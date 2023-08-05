@@ -386,7 +386,10 @@ export default function NewWorkerPage() {
 												placeholder='janesmith'
 												value={formData.username}
 												onChange={(e) =>
-													setFormData({ ...formData, username: e.target.value })
+													setFormData({
+														...formData,
+														username: e.target.value.toLowerCase(),
+													})
 												}
 											/>
 										</div>
