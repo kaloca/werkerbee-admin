@@ -60,7 +60,7 @@ export default function NewWorkerPage() {
 			//ssn: formData.ssn,
 			birthday: formData.birthday,
 			phoneNumber: formData.phoneNumber,
-			jobTypes: formData.jobTypes,
+			jobTypesIds: formData.jobTypes,
 			address: {
 				country: formData.country,
 				state: formData.state,

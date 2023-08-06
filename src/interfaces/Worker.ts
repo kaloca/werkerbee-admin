@@ -1,4 +1,5 @@
 import { Certification } from './Certification'
+import { JobType } from './JobType'
 import { Address, BankAccount } from './UserData'
 export interface Experience {
 	_id: string
@@ -25,7 +26,8 @@ export interface Worker {
 	rating: number
 	profilePicture: string
 	certifications?: string[] | Certification[]
-	jobTypes: string[]
+	jobTypes?: string[]
+	jobTypesIds: string[] | JobType[]
 	experiences?: Experience[]
 	accountStatus: 'APPROVED' | 'PENDING' | 'REJECTED'
 	createdAt: string

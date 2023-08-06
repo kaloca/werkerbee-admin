@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import helpers from '@/utils/helpers'
 
-import useJobTypes from '../../../../hooks/useJobTypes'
+import useJobTypes from '@/hooks/useJobTypes'
 
 const CheckedBox = () => (
 	<svg
@@ -76,6 +76,7 @@ const JobTypesInput: React.FC<JobTypesInputProps> = ({
 
 	const fetchedJobTypes = data.jobTypes.map((jobType) => ({
 		type: jobType.type,
+		_id: jobType._id,
 		selected: false,
 	}))
 
@@ -98,7 +99,12 @@ const JobTypesInput: React.FC<JobTypesInputProps> = ({
 				<p>
 					{value.length == 0
 						? placeholder
-						: helpers.formatArrayToString(value, 20)}
+						: helpers.formatArrayToString(
+								fetchedJobTypes
+									.filter((jobType) => value.includes(jobType._id))
+									.map((jobType) => jobType.type),
+								20
+						  )}
 				</p>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
@@ -125,11 +131,11 @@ const JobTypesInput: React.FC<JobTypesInputProps> = ({
 							className=' px-3 py-2 hover:bg-slate-100 flex flex-row justify-between'
 							onClick={() => {
 								//setShowDropdown(false)
-								onChange(jobType.type)
+								onChange(jobType._id)
 							}}
 						>
 							<p className=' first-letter:capitalize'>{jobType.type}</p>
-							{value.includes(jobType.type) ? <CheckedBox /> : <EmptyBox />}
+							{value.includes(jobType._id) ? <CheckedBox /> : <EmptyBox />}
 						</div>
 					))}
 				</div>

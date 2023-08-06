@@ -8,6 +8,8 @@ import apiClient from '@/utils/apiClient'
 
 import useWorker from '../hooks/useWorker'
 
+import { JobType } from '@/interfaces/JobType'
+
 import Input from './Input'
 import JobTypesInput from './JobTypesInput'
 import CertificationInput from './CertificationsInput'
@@ -63,7 +65,7 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 				country: worker.address.country,
 				state: worker.address.state,
 				zip: worker.address.zip,
-				jobTypes: worker.jobTypes,
+				jobTypes: worker.jobTypesIds as string[],
 				certifications: worker.certifications as any,
 			})
 		}
@@ -90,7 +92,7 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 						state: formData.state,
 						zip: formData.zip,
 					},
-					jobTypes: formData.jobTypes,
+					jobTypesIds: formData.jobTypes,
 					certifications: formData.certifications,
 				},
 			})
@@ -166,14 +168,14 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 											/>
 
 											<JobTypesInput
-												onChange={(value) => {
+												onChange={(id) => {
 													let currentTypes = formData.jobTypes
-													if (currentTypes.includes(value)) {
+													if (currentTypes.includes(id)) {
 														currentTypes = currentTypes.filter(
-															(type) => type != value
+															(type) => type != id
 														)
 													} else {
-														currentTypes.push(value)
+														currentTypes.push(id)
 													}
 													setFormData({
 														...formData,
