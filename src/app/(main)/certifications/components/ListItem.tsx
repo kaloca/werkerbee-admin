@@ -170,15 +170,24 @@ const ListItem: React.FC<ListItemProps> = ({ certification, mutate }) => {
 						)}
 					</div>
 				) : (
-					<button
-						type='button'
-						className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-						onClick={() =>
-							updateCertification(certification._id, editCertificationValue)
-						}
-					>
-						{!loadingEdit ? 'Save' : <PulseLoader size={8} color='white' />}
-					</button>
+					<>
+						<button
+							type='button'
+							className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+							onClick={() =>
+								updateCertification(certification._id, editCertificationValue)
+							}
+						>
+							{!loadingEdit ? 'Save' : <PulseLoader size={8} color='white' />}
+						</button>
+						<button
+							type='button'
+							className='inline-flex items-center mr-3 px-3 py-2 border-2 border-gray-200 shadow-sm text-base font-medium rounded-md text-indigo-600 bg-gray-100 hover:bg-slate-100 hover:text-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+							onClick={() => setEdit(false)}
+						>
+							Cancel
+						</button>
+					</>
 				)}
 			</div>
 		</li>

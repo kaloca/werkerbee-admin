@@ -111,7 +111,7 @@ const ListItem: React.FC<ListItemProps> = ({ jobType, mutate }) => {
 						<select
 							id='business-type-edit'
 							name='business-type-edit'
-							className='ml-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
+							className='ml-1 block w-32 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md'
 							defaultValue={jobType.businessType.toLowerCase()}
 							value={editJobTypeValue.businessType.toLowerCase()}
 							onChange={(e) =>
@@ -168,13 +168,22 @@ const ListItem: React.FC<ListItemProps> = ({ jobType, mutate }) => {
 						)}
 					</div>
 				) : (
-					<button
-						type='button'
-						className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-						onClick={() => updateJobType(jobType._id, editJobTypeValue)}
-					>
-						{!loadingEdit ? 'Save' : <PulseLoader size={8} color='white' />}
-					</button>
+					<div className='inline-flex w-full justify-between items-center'>
+						<button
+							type='button'
+							className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+							onClick={() => updateJobType(jobType._id, editJobTypeValue)}
+						>
+							{!loadingEdit ? 'Save' : <PulseLoader size={8} color='white' />}
+						</button>
+						<button
+							type='button'
+							className='inline-flex items-center mr-3 px-3 py-2 border-2 border-gray-200 shadow-sm text-base font-medium rounded-md text-indigo-600 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+							onClick={() => setEdit(false)}
+						>
+							Cancel
+						</button>
+					</div>
 				)}
 			</div>
 		</li>
