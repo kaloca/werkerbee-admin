@@ -12,9 +12,15 @@ interface UseWorkersResponse {
 	limit: number
 }
 
-const useWorkers = (page: number, limit: number = 10) => {
+const useWorkers = (page: number, limit: number = 10, search?: string) => {
+	const queryParams = [
+		`page=${page}`,
+		`limit=${limit}`,
+		...(search ? [`search=${encodeURIComponent(search)}`] : []),
+	].join('&')
+
 	const { data, error, isLoading, mutate } = useSWR(
-		`${BASE_URL}/admin/workers?page=${page}&limit=${limit}`,
+		`${BASE_URL}/admin/workers?${queryParams}`,
 		fetcher
 	)
 
