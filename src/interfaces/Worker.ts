@@ -24,7 +24,7 @@ export interface Worker {
 	birthday: Date
 	rating: number
 	profilePicture: string
-	certifications?: Certification[]
+	certifications?: string[] | Certification[]
 	jobTypes: string[]
 	experiences?: Experience[]
 	accountStatus: 'APPROVED' | 'PENDING' | 'REJECTED'

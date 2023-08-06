@@ -1,15 +1,16 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
-
 import { KeyedMutator } from 'swr'
 
-import useWorker from '../hooks/useWorker'
-import Input from './Input'
-import { Worker } from '@/interfaces/Worker'
-import JobTypesInput from './JobTypesInput'
-import apiClient from '@/utils/apiClient'
+import { Dialog, Transition } from '@headlessui/react'
 import { PulseLoader } from 'react-spinners'
+
+import apiClient from '@/utils/apiClient'
+
+import useWorker from '../hooks/useWorker'
+
+import Input from './Input'
+import JobTypesInput from './JobTypesInput'
+import CertificationInput from './CertificationsInput'
 
 export interface WorkerForm {
 	name: string
@@ -19,6 +20,7 @@ export interface WorkerForm {
 	state: string
 	zip: string
 	jobTypes: string[]
+	certifications: string[]
 }
 
 interface WorkerModalProps {
@@ -45,6 +47,7 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 		state: ' ',
 		zip: ' ',
 		jobTypes: [],
+		certifications: [],
 	})
 
 	useEffect(() => {
@@ -61,6 +64,7 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 				state: worker.address.state,
 				zip: worker.address.zip,
 				jobTypes: worker.jobTypes,
+				certifications: worker.certifications as any,
 			})
 		}
 	}, [isLoading, worker, open])
@@ -87,6 +91,7 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 						zip: formData.zip,
 					},
 					jobTypes: formData.jobTypes,
+					certifications: formData.certifications,
 				},
 			})
 			if (response?.status === 200) {
@@ -182,6 +187,18 @@ const WorkerModal: React.FC<WorkerModalProps> = ({
 												label={'Job Types'}
 												value={formData.jobTypes}
 											/>
+
+											<div className='col-span-10 sm:col-span-6'>
+												{worker?.certifications && (
+													<CertificationInput
+														formData={formData}
+														setFormData={setFormData}
+														workerCertifications={
+															worker.certifications as string[]
+														}
+													/>
+												)}
+											</div>
 
 											<Input
 												name='street'
