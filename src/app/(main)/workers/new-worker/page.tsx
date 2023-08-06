@@ -10,6 +10,23 @@ import helpers from '@/utils/helpers'
 
 import { useSnackbar } from '@/components/snackbar/SnackbarContext'
 import JobTypesInput from '../components/JobTypesInput'
+import CertifiicationsInput from '../components/CertificationsInput'
+export interface CreateWorkerForm {
+	firstName: string
+	lastName: string
+	email: string
+	country: string
+	streetAddress: string
+	city: string
+	state: string
+	zip: string
+	jobTypes: string[]
+	upskillingTypes: string[]
+	username: string
+	birthday: string
+	phoneNumber: string
+	certifications: string[]
+}
 
 export default function NewWorkerPage() {
 	const router = useRouter()
@@ -17,7 +34,7 @@ export default function NewWorkerPage() {
 
 	const formRef = useRef<HTMLFormElement>(null)
 
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<CreateWorkerForm>({
 		firstName: '',
 		lastName: '',
 		email: '',
@@ -26,11 +43,12 @@ export default function NewWorkerPage() {
 		city: '',
 		state: '',
 		zip: '',
-		jobTypes: [] as string[],
-		upskillingTypes: [] as string[],
+		jobTypes: [],
+		upskillingTypes: [],
 		username: '',
 		birthday: '',
 		phoneNumber: '',
+		certifications: [],
 	})
 
 	const handleSubmit = async () => {
@@ -50,6 +68,7 @@ export default function NewWorkerPage() {
 				street: formData.streetAddress,
 				zip: formData.zip,
 			},
+			certifications: formData.certifications,
 			password: '11111111',
 		}
 
@@ -531,6 +550,16 @@ required
 										showError={{}}
 										error='Test'
 										value={formData.upskillingTypes}
+									/>
+								</fieldset>
+								<fieldset>
+									<legend className='text-sm font-semibold leading-6 text-gray-900'>
+										Certifications
+									</legend>
+									<CertifiicationsInput
+										formData={formData}
+										setFormData={setFormData}
+										showLabel={false}
 									/>
 								</fieldset>
 								{/* <fieldset>

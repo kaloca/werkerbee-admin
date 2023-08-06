@@ -8,6 +8,7 @@ import useCertifications from '@/hooks/useCertifications'
 
 import { Certification } from '@/interfaces/Certification'
 import { WorkerForm } from './WorkerModal'
+import { CreateWorkerForm } from '../new-worker/page'
 
 const people = [
 	{ id: 1, name: 'Leslie Alexander' },
@@ -17,31 +18,39 @@ const people = [
 const classNames = helpers.classNames
 
 interface CertificationsInputProps {
-	formData: WorkerForm
-	setFormData: Dispatch<SetStateAction<WorkerForm>>
-	workerCertifications: string[]
+	formData: WorkerForm | CreateWorkerForm
+	setFormData:
+		| Dispatch<SetStateAction<WorkerForm>>
+		| Dispatch<SetStateAction<CreateWorkerForm>>
+	workerCertifications?: string[]
+	showLabel?: boolean
 }
 
 const CertifiicationsInput: React.FC<CertificationsInputProps> = ({
 	formData,
 	setFormData,
 	workerCertifications,
+	showLabel = true,
 }) => {
 	const [query, setQuery] = useState('')
 
 	const { data: certifications, isLoading } = useCertifications()
 
-	const [selectedCertifications, setSelectedCertifications] =
-		useState<string[]>(workerCertifications)
+	const [selectedCertifications, setSelectedCertifications] = useState<
+		string[]
+	>(workerCertifications ?? [])
 
 	const [showDropdown, setShowDropdown] = useState(false)
 
 	useEffect(() => {
-		setFormData({ ...formData, certifications: selectedCertifications })
+		setFormData({
+			...(formData as any),
+			certifications: selectedCertifications,
+		})
 	}, [selectedCertifications])
 
 	useEffect(() => {
-		setSelectedCertifications(workerCertifications)
+		if (workerCertifications) setSelectedCertifications(workerCertifications)
 	}, [workerCertifications])
 
 	const dropdownRef = useRef<HTMLDivElement>(null)
@@ -76,9 +85,11 @@ const CertifiicationsInput: React.FC<CertificationsInputProps> = ({
 
 	return (
 		<Combobox as='div' ref={dropdownRef}>
-			<Combobox.Label className='block text-sm font-medium text-gray-700'>
-				Certifications
-			</Combobox.Label>
+			{showLabel && (
+				<Combobox.Label className='block text-sm font-medium text-gray-700'>
+					Certifications
+				</Combobox.Label>
+			)}
 			<div className='relative mt-1'>
 				<Combobox.Input
 					className='w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm'
